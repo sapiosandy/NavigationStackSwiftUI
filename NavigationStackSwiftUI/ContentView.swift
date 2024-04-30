@@ -9,13 +9,63 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            VStack (spacing: 25) {
+                NavigationLink {
+                    SecondView()
+                } label: {
+                    Text("Go to second view")
+                }
+                Text("Initial View")
+            }
+            .padding()
         }
-        .padding()
+    }
+    
+    struct SecondView: View {
+        var body: some View {
+            ZStack { 
+                Rectangle()
+                    .foregroundColor(.orange)
+                VStack {
+                    Text ("Second View")
+                    NavigationLink {
+                        ThirdView()
+                    } label: {
+                        Text("Go to third view")
+                    }
+                }
+            }
+        }
+    }
+    
+    struct ThirdView : View {
+        var body: some View {
+            ZStack {
+                Rectangle()
+                    .foregroundColor(.purple)
+                VStack {
+                    Text ("Third View")
+                    NavigationLink {
+                        LastView()
+                    } label : {
+                        Text ("Go to last view")
+                    }
+                }
+            }
+        }
+    }
+    
+    struct LastView: View {
+        var body: some View {
+            ZStack {
+                Rectangle()
+                    .foregroundColor(.pink)
+                VStack {
+                    Text ("Last View")
+                }
+            }
+        }
     }
 }
 
