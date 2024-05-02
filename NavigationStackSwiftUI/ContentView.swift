@@ -7,7 +7,14 @@
 
 import SwiftUI
 
+class Broadcast: ObservableObject {
+    @Published var message = "Shared Text"
+}
+
 struct ContentView: View {
+    
+    @ObservedObject var shareMe = Broadcast()
+    
     var body: some View {
         NavigationStack {
             VStack (spacing: 25) {
@@ -17,18 +24,18 @@ struct ContentView: View {
                     Text("Go to second view")
                 }
                 Text("Initial View")
-            }
-            .padding()
-        }
+            }.navigationTitle("First View")
+        }.environmentObject(shareMe)
     }
     
     struct SecondView: View {
+        @EnvironmentObject var junkHere: Broadcast
         var body: some View {
             ZStack { 
                 Rectangle()
                     .foregroundColor(.orange)
                 VStack {
-                    Text ("Second View")
+                    Text ("Second View + \(junkHere.message)")
                     NavigationLink {
                         ThirdView()
                     } label: {
@@ -40,12 +47,13 @@ struct ContentView: View {
     }
     
     struct ThirdView : View {
+        @EnvironmentObject var stuffHere: Broadcast
         var body: some View {
             ZStack {
                 Rectangle()
                     .foregroundColor(.purple)
                 VStack {
-                    Text ("Third View")
+                    Text ("Third View + \(stuffHere.message)")
                     NavigationLink {
                         LastView()
                     } label : {
@@ -57,17 +65,16 @@ struct ContentView: View {
     }
     
     struct LastView: View {
+        @EnvironmentObject var anotherString: Broadcast
         var body: some View {
             ZStack {
                 Rectangle()
                     .foregroundColor(.pink)
-                VStack {
-                    Text ("Last View")
+                TextField ("Type here", text: $anotherString.message)
                 }
             }
         }
     }
-}
 
 #Preview {
     ContentView()
