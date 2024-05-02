@@ -34,7 +34,7 @@ struct ContentView: View {
                     } label: {
                         Text("Go to third view")
                     }
-                }
+                }.navigationTitle("Second View")
             }
         }
     }
@@ -51,7 +51,7 @@ struct ContentView: View {
                     } label : {
                         Text ("Go to last view")
                     }
-                }
+                }.navigationTitle("Third View")
             }
         }
     }
